@@ -3,17 +3,31 @@ layout: default
 title: Lab 9 - Postman Runner Chaining Requests
 ---
 
-# 🔴 Lab 9: Postman Collection Runner with Chained Requests
+# 🔹 Lab 9: Chaining API Requests with Postman Collection Runner
 
-1. Create a GET request for `organizations`, store `org_id`:
-```js
-let jsonData = pm.response.json();
-pm.collectionVariables.set("org_id", jsonData[0].id);
-```
+## 🎯 Objective:
+Use Postman to automate a chain of API requests. Extract the `org_id` from one request and reuse it in the next.
 
-2. Use `{{org_id}}` in the second request:
-`https://api.meraki.com/api/v1/organizations/{{org_id}}/networks`
+---
 
-3. Run in Collection Runner.
+## 🧭 Steps:
 
-![Postman Runner](../assets/postman_runner_chaining.png)
+1. **Request 1**: `GET /organizations`
+   - In Tests tab:
+   ```javascript
+   let jsonData = pm.response.json();
+   pm.collectionVariables.set("org_id", jsonData[0].id);
+   ```
+
+2. **Request 2**: `GET /organizations/{{org_id}}/networks`
+   - Uses the variable set by the first request.
+
+3. **Run It**:
+   - Click Collection Runner
+   - Confirm order and variables
+   - Click Run
+
+---
+
+## 🧠 Tip:
+Use this pattern for dynamic data extraction and chaining.
